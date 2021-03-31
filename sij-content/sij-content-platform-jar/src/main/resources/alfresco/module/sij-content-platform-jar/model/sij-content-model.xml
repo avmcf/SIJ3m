@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Definition of new Model -->
+<model name="sij:sijmodel" xmlns="http://www.alfresco.org/model/dictionary/1.0">
+
+	<!-- Optional meta-data about the model -->
+	<description>sij content model</description>
+	<author>avmcf</author>
+	<version>2.0</version>
+
+	<!-- Imports are required to allow references to definitions in other models -->
+	<imports>
+		<!-- Import Alfresco Dictionary Definitions -->
+		<import uri="http://www.alfresco.org/model/dictionary/1.0" prefix="d" />
+		<!-- Import Alfresco Content Domain Model Definitions -->
+		<import uri="http://www.alfresco.org/model/content/1.0" prefix="cm" />
+		<import uri="http://www.alfresco.org/model/system/1.0" prefix="sys"/>		
+	</imports>
+
+	<!-- Introduction of new namespaces defined by this model -->
+	<namespaces>
+		<namespace uri="http://www.vconsulte.sij.com/model/content/2.0" prefix="sij" />
+	</namespaces>
+	
+	<constraints>
+		<constraint name="sij:situacaoList" type="LIST">
+            <parameter name="allowedValues">
+                <list>
+                    <value>Arquivado</value>
+                    <value>Tramitando</value>
+                    <value>Recebido</value>
+                    <value>Recusado</value>
+                    <value>Eliminado</value>
+                    <value>Novo</value>
+                    <value>Rejeitado</value>
+                    <value>Indexado</value>
+                </list>
+            </parameter>
+        </constraint>
+        <constraint name="sij:tipoList" type="LIST">
+            <parameter name="allowedValues">
+                <list>
+                    <value>Citação</value>
+                    <value>Procuração</value>
+                    <value>Fatura</value>
+                    <value>Extrato</value>
+                    <value>Ofício</value>
+                    <value>Correspondência</value>
+                    <value>Publicação</value>
+                    <value>Documento</value>
+                    <value>Rascunho</value>
+                    <value>Tabela de Tokens</value>
+                </list>
+            </parameter>
+        </constraint>
+        <constraint name="sij:statusList" type="LIST">
+            <parameter name="allowedValues">
+                <list>
+                    <value>indexado</value>
+                    <value>clipping</value>
+                    <value>processado</value>
+                </list>
+            </parameter>
+        </constraint>
+        <constraint name="sij:statusProcessoList" type="LIST">
+            <parameter name="allowedValues">
+                <list>
+                    <value>ativo</value>
+                    <value>encerrado</value>
+                    <value>cancelado</value>
+                </list>
+            </parameter>
+        </constraint>
+     
+        <constraint name="sij:tribunalList" type="LIST">
+            <parameter name="allowedValues">
+                <list>
+                	<value>00</value>
+                    <value>01</value>
+                    <value>02</value>
+                    <value>03</value>
+                    <value>04</value>
+                    <value>05</value>
+                    <value>06</value>
+                    <value>07</value>
+                    <value>08</value>
+                    <value>09</value>
+                    <value>10</value>
+                    <value>11</value>
+                    <value>12</value>
+                    <value>13</value>
+                    <value>14</value>
+                    <value>15</value>
+                    <value>16</value>
+                    <value>17</value>
+                    <value>18</value>
+                    <value>19</value>
+                    <value>20</value>
+                    <value>21</value>
+                    <value>22</value>
+                    <value>23</value>
+                    <value>24</value>
+                </list>
+            </parameter>
+        </constraint>
+        
+        <constraint name="sij:varas06" type="LIST">
+            <parameter name="allowedValues">
+                <list>
+                	<value>1ª Vara Recife</value>
+                	<value>2ª Vara Recife</value>
+                	<value>3ª Vara Recife</value>
+                	<value>4ª Vara Recife</value>
+                	<value>5ª Vara Recife</value>
+                	<value>6ª Vara Recife</value>
+                	<value>7ª Vara Recife</value>
+                	<value>8ª Vara Recife</value>
+                	<value>9ª Vara Recife</value>
+                	<value>10ª Vara Recife</value>
+                	<value>11ª Vara Recife</value>
+                	<value>12ª Vara Recife</value>
+                	<value>13ª Vara Recife</value>
+                	<value>14ª Vara Recife</value>
+                	<value>15ª Vara Recife</value>
+                	<value>16ª Vara Recife</value>
+                	<value>17ª Vara Recife</value>
+                	<value>18ª Vara Recife</value>
+                	<value>19ª Vara Recife</value>
+                	<value>20ª Vara Recife</value>
+                	<value>21ª Vara Recife</value>
+                	<value>22ª Vara Recife</value>
+                	<value>23ª Vara Recife</value>
+                	<value>1ª Vara Olinda</value>
+                	<value>2ª Vara Olinda</value>
+                	<value>3ª Vara Olinda</value>
+                	<value>1ª Vara Jaboatão</value>
+                	<value>2ª Vara Jaboatão</value>
+                    <value>3ª Vara Jaboatão</value>
+                    <value>4ª Vara Jaboatão</value>
+                </list>
+            </parameter>
+        </constraint>
+	</constraints>
+	
+	<types>
+		<!-- Enterprise-wide generic document type -->
+		<type name="sij:conteudo">
+			<title>Conteudos SIJ</title>
+			<parent>cm:content</parent>
+			<associations>
+				<association name="sij:conteudosRelacionados">
+					<title>Conteudos Relacionados</title>
+					<source>
+						<mandatory>false</mandatory>
+						<many>true</many>
+					</source>
+					<target>
+						<class>sij:conteudo</class>
+						<mandatory>false</mandatory>
+						<many>true</many>
+					</target>
+				</association>
+			</associations>
+			<mandatory-aspects>
+				<aspect>cm:generalclassifiable</aspect>
+			</mandatory-aspects>
+		</type>
+
+		<type name="sij:documento">
+			<title>Documentos SIJ</title>
+			<parent>sij:conteudo</parent>
+			<properties>
+				<property name="sij:docTipo">
+					<type>d:text</type>
+					<multiple>false</multiple>
+					<default>Rascunho</default>
+                    <constraints>
+                    	<constraint ref="sij:tipoList" />
+                    </constraints>
+				</property>
+				<property name="sij:docSituacao">
+					<type>d:text</type>
+					<mandatory>false</mandatory>
+					<multiple>false</multiple>
+					<default>Novo</default>
+                    <constraints>
+                    	<constraint ref="sij:situacaoList" />
+                    </constraints>      
+				</property>	
+				<property name="sij:docCliente">
+					<type>d:text</type>
+					<mandatory>true</mandatory>     
+				</property>	
+            </properties>
+		</type>
+		
+		<type name="sij:publicacao">
+			<title>Publicacao SIJ</title>
+			<parent>sij:conteudo</parent>
+			<properties>
+				<property name="sij:pubEdicao">
+      				<type>d:date</type>
+      				<mandatory>false</mandatory>				
+    			</property>
+    			<property name="sij:pubStrEdicao">
+      				<type>d:text</type>
+      				<mandatory>false</mandatory>				
+    			</property>
+    			<property name="sij:pubTribunal">
+      				<type>d:text</type>
+      				<mandatory>false</mandatory>
+      				<constraints>
+                  		<constraint ref="sij:tribunalList" />
+               		</constraints>						               
+   				 </property>
+   				 <property name="sij:pubVara">
+      				<type>d:text</type>
+      				<mandatory>false</mandatory>						               
+    			</property>
+    			<property name="sij:pubProcesso">
+      				<type>d:text</type>
+      				<mandatory>false</mandatory>						               
+    			</property>
+    			<property name="sij:pubGrupo">
+    				<title>Grupo</title>
+      				<type>d:text</type>
+      				<mandatory>false</mandatory>						               
+    			</property>
+    			<property name="sij:pubAssunto">
+      				<type>d:text</type>
+      				<mandatory>false</mandatory>						               
+    			</property>
+    			<property name="sij:pubAdvogados">
+                	<title>Partes</title>
+                	<type>d:mltext</type>
+                	<mandatory>false</mandatory>
+            	</property>
+            	<property name="sij:pubIntimados">
+                	<title>Intimados</title>
+                	<type>d:mltext</type>
+                	<mandatory>false</mandatory>
+            	</property>
+            	<property name="sij:pubFolder">
+                	<title>folder</title>
+                	<type>d:text</type>
+                	<mandatory>false</mandatory>
+            	</property>
+            	<property name="sij:pubCliente">
+                	<title>folder</title>
+                	<type>d:text</type>
+                	<mandatory>false</mandatory>
+            	</property>   				 
+			</properties>
+		</type>
+		
+	</types>
+
+	<aspects>	
+		<aspect name="sij:docJuridico">
+			<title>Peca Juridica</title>
+			<properties>
+				<property name="sij:jurCliente">
+					<type>d:text</type>
+					<mandatory>false</mandatory>				
+				</property>
+				<property name="sij:jurTipo">
+                   <type>d:text</type>
+                   <mandatory>false</mandatory>
+               	</property>
+               	<property name="sij:jurProcesso">
+                   <type>d:text</type>
+                   <mandatory>false</mandatory>
+               	</property>
+               	<property name="sij:jurTribunal">
+                   <type>d:text</type>
+                   <mandatory>false</mandatory>
+                   <constraints>
+                  		<constraint ref="sij:tribunalList" />
+               		</constraints>
+               	</property>
+               	<property name="sij:jurVara">
+                   <type>d:text</type>
+                   <mandatory>false</mandatory>
+                   <constraints>
+                  		<constraint ref="sij:varas06" />
+               		</constraints>
+               	</property>
+			</properties>
+		</aspect>
+	
+		<aspect name="sij:clienteSIJ">
+			<title>Cliente SIJ</title>
+			<properties>
+				<property name="sij:cliCodigo">
+					<type>d:text</type>
+					<mandatory>false</mandatory>				
+				</property>
+				<property name="sij:cliNome">
+                   <type>d:text</type>
+                   <mandatory>false</mandatory>
+               	</property>
+               	<property name="sij:cliPastaPublicacoes">
+                   <type>d:text</type>
+                   <mandatory>false</mandatory>
+               	</property>
+               	<property name="sij:cliSite">
+                   <type>d:text</type>
+                   <mandatory>false</mandatory>
+               	</property>
+			</properties>
+		</aspect>
+	
+		<aspect name="sij:tabTokens">
+			<title>Tabela de Tokens</title>
+			<properties>
+				<property name="sij:tknCliente">
+					<type>d:text</type>
+					<mandatory>true</mandatory>						               
+				</property>
+				<property name="sij:tknTribunal">
+					<type>d:text</type>
+					<mandatory>true</mandatory>
+					<constraints>
+                    	<constraint ref="sij:tribunalList" />
+                    </constraints>						               
+				</property>
+			</properties>
+		</aspect>
+	
+		<aspect name="sij:diarioOficial">
+			<title>Diario Oficial</title>
+			<properties>
+				<property name="sij:dofTribunal">
+      				<type>d:text</type>
+      				<mandatory>false</mandatory>
+      				<constraints>
+                  		<constraint ref="sij:tribunalList" />
+               		</constraints>						               
+   				 </property>
+				<property name="sij:dofEdicao">
+      				<type>d:date</type>
+      				<mandatory>false</mandatory>				
+    			</property> 
+    			<property name="sij:dofObservacao">
+      				<type>d:text</type>
+      				<mandatory>false</mandatory>					               
+   				 </property>
+   				 <property name="sij:dofProcessado">
+					<type>d:boolean</type>
+					<default>false</default>			
+				</property>		  				 
+			</properties>
+		</aspect>
+		
+		<aspect name="sij:recorte">
+			<title>Recorte do Diario Oficial</title>
+			<properties>
+				<property name="sij:recCliente">
+                   <title>Cliente SIJ</title>
+                   <type>d:text</type>
+                   <mandatory>false</mandatory>
+               </property>
+				<property name="sij:recTokens">
+                   <title>Token</title>
+                   <type>d:mltext</type>
+                   <mandatory>false</mandatory>
+               </property>
+			</properties>
+		</aspect>
+		
+		<aspect name="sij:empresa">
+			<title>Empresa Cliente</title>
+			<properties>
+				<property name="sij:empCodigo">
+                    <title>Codigo da Empresa</title>
+                    <type>d:text</type>
+                    <mandatory>true</mandatory>
+                </property>
+				<property name="sij:empNome">
+                    <title>Nome da Empresa</title>
+                    <type>d:text</type>
+                    <mandatory>false</mandatory>
+                </property>
+                <property name="sij:empCNPJ">
+                    <title>CNPJ da Empresa</title>
+                    <type>d:text</type>
+                    <mandatory>false</mandatory>
+                </property>
+                <property name="sij:empEndereco">
+                    <title>Endereco da Empresa</title>
+                    <type>d:mltext</type>
+                    <mandatory>false</mandatory>
+                </property>
+                <property name="sij:empContato">
+                    <title>Responsavel da Empresa</title>
+                    <type>d:mltext</type>
+                    <mandatory>false</mandatory>
+                </property>
+                <property name="sij:empFones">
+                    <title>Telefones da Empresa</title>
+                    <type>d:text</type>
+                    <mandatory>false</mandatory>
+                </property>
+                <property name="sij:empEmails">
+                    <title>E-mails da Empresa</title>
+                    <type>d:text</type>
+                    <mandatory>false</mandatory>
+                </property>
+                <property name="sij:empTokens">
+                    <title>Tokens da Empresa</title>
+                    <type>d:mltext</type>
+                    <mandatory>false</mandatory>
+                </property>
+                <property name="sij:empCapitao">
+                    <title>Capitao da Empresa</title>
+                    <type>d:text</type>
+                    <mandatory>false</mandatory>
+                </property>
+			</properties>
+		</aspect>
+		
+		<aspect name="sij:publicacoes">
+			<title>Pasta de Publicações</title>
+			<properties>
+				<property name="sij:pstEdicao">
+					<type>d:date</type>
+					<mandatory>false</mandatory>				
+				</property>
+				<property name="sij:pstTribunal">
+					<type>d:text</type>
+					<mandatory>false</mandatory>
+					<constraints>
+                    	<constraint ref="sij:tribunalList" />
+                    </constraints>						               
+				</property>
+				<property name="sij:pstCliente">
+					<type>d:text</type>
+					<mandatory>false</mandatory>						               
+				</property>
+			</properties>
+		</aspect>
+		
+		<aspect name="sij:edicoes">
+			<title>Pasta de Edicoes</title>
+			<properties>
+				<property name="sij:edcEdicao">
+					<type>d:date</type>
+					<mandatory>false</mandatory>				
+				</property>
+				<property name="sij:edcStrEdicao">
+					<type>d:text</type>
+					<mandatory>false</mandatory>				
+				</property>
+				<property name="sij:edcTribunal">
+					<type>d:text</type>
+					<mandatory>false</mandatory>
+					<constraints>
+                    	<constraint ref="sij:tribunalList" />
+                    </constraints>						               
+				</property>
+				<property name="sij:edcIndexados">
+					<type>d:text</type>			
+				</property>
+				<property name="sij:edcObservacao">
+					<type>d:text</type>				
+				</property>
+				<property name="sij:edcIndex">
+					<type>d:boolean</type>
+					<default>false</default>			
+				</property>
+			</properties>
+		</aspect>
+		
+		<aspect name="sij:processo">
+			<title>Pasta de Processos</title>
+			<properties>
+				<property name="sij:prcNumProcesso">
+					<type>d:text</type>
+					<mandatory>false</mandatory>				
+				</property>
+				<property name="sij:prcEmpresa">
+					<type>d:text</type>
+					<mandatory>false</mandatory>				
+				</property>
+				<property name="sij:prcTribunal">
+					<type>d:text</type>
+					<mandatory>false</mandatory>
+					<constraints>
+                    	<constraint ref="sij:tribunalList" />
+                    </constraints>						               
+				</property>
+				<property name="sij:prcVara">
+					<type>d:text</type>			
+				</property>
+				<property name="sij:prcStatus">
+					<type>d:text</type>
+					<mandatory>false</mandatory>
+					<constraints>
+                    	<constraint ref="sij:statusProcessoList" />
+                    </constraints>						               
+				</property>
+				<property name="sij:prcObservacao">
+					<type>d:text</type>				
+				</property>
+			</properties>
+		</aspect>
+	</aspects>
+</model>

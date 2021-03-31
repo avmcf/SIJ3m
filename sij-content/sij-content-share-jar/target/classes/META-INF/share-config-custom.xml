@@ -1,0 +1,1239 @@
+<alfresco-config>
+   <!-- Document Library config section -->
+   <config evaluator="string-compare" condition="DocumentLibrary">
+      <!--
+         Used by the "Manage Aspects" action
+
+         For custom aspects, remember to also add the relevant i18n string(s)
+            cm_myaspect=My Aspect
+      -->
+      <aspects>
+         <!-- Aspects that a user can see -->
+         <visible>  
+            <aspect name="sij:edicoes" />  
+            <aspect name="sij:empresa" />  
+            <aspect name="sij:processo" />   
+            <aspect name="sij:diarioOficial" />
+            <aspect name="sij:recorte" />
+            <aspect name="sij:clienteSIJ" /> 
+            <aspect name="sij:tabTokens" />
+            <aspect name="sij:publicacoes" />
+            <aspect name="sij:docJuridico" />
+         </visible>
+
+         <!-- Aspects that a user can add. Same as "visible" if left empty -->
+         <addable>
+         </addable>
+
+         <!-- Aspects that a user can remove. Same as "visible" if left empty -->
+         <removeable>
+         </removeable>
+      </aspects>
+
+      <!--
+         Used by the "Change Type" action
+
+         Define valid subtypes using the following example:
+            <type name="cm:content">
+               <subtype name="cm:mysubtype" />
+            </type>
+
+         Remember to also add the relevant i18n string(s):
+            cm_mysubtype=My SubType
+      -->
+      <types>
+	      	 <type name="cm:content">
+                <subtype name="sij:conteudo" />
+                <subtype name="sij:documento" />              
+                <subtype name="sij:publicacao"/>  			         
+             </type>
+             <type name="sij:conteudo">
+                <subtype name="sij:documento" />
+                <subtype name="sij:publicacoes"/>
+			</type>
+      </types>
+   </config>
+   
+   <config replace="true" evaluator="string-compare" condition="AdvancedSearch">
+      <advanced-search>
+         <!-- Forms for the advanced search type list -->
+         <forms>
+            <!--
+               The 'form' config element contains the name of the model type
+               of the form to display.
+               
+               The element supports the following optional attributes:
+                  id = form id, the id of "search" will be assumed if not set
+                  label = label text to display - defaults to model type if not set
+                  labelId = I18N message id of label text to display
+                  description = description text to display
+                  descriptionId = I18N message id of description text to display
+            -->
+		<!--  
+            <form labelId="search.form.label.cm_content" descriptionId="search.form.desc.cm_content">cm:content</form>
+            <form labelId="search.form.label.cm_folder" descriptionId="search.form.desc.cm_folder">cm:folder</form> 
+        -->      
+        	<form labelId="type.sij_documento" descriptionId="search.form.desc.sij_documento">sij:documento</form> 
+            <form labelId="type.sij_publicacao" descriptionId="search.form.desc.sij_publicacao">sij:publicacao</form>
+            
+         </forms>
+      </advanced-search>
+   </config>
+   
+      <!-- sij:conteudo type (existing nodes) -->
+      
+   <config evaluator="node-type" condition="sij:conteudo">
+      <forms>
+         <!-- Default form configuration for the sc:whitepaper type -->
+         <form>
+            <field-visibility>
+               <show id="cm:name" />
+               <show id="cm:title" force="true" />
+               <show id="cm:description" force="true" />
+               <show id="mimetype" />
+               <show id="cm:author" force="true" />
+               <show id="size" for-mode="view" />
+               <show id="cm:creator" for-mode="view" />
+               <show id="cm:created" for-mode="view" />
+               <show id="cm:modifier" for-mode="view" />
+               <show id="cm:modified" for-mode="view" />
+               
+               <!-- tags and categories -->
+               <show id="cm:taggable" for-mode="edit" force="true" />
+               <show id="cm:categories" />
+               
+               <!-- cm:dublincore aspect -->
+               <show id="cm:publisher"/>
+               <show id="cm:contributor"/>
+               <show id="cm:type"/>
+               <show id="cm:identifier"/>
+               <show id="cm:dcsource"/>
+               <show id="cm:coverage"/>
+               <show id="cm:rights"/>
+               <show id="cm:subject"/>
+               
+               <!-- cm:complianceable aspect -->
+               <show id="cm:removeAfter" />
+               
+               <!-- cm:effectivity aspect -->
+               <show id="cm:from"/>
+               <show id="cm:to"/>
+               
+               <!--  cm:summarizable aspect -->
+               <show id="cm:summary" />
+               
+               <!-- cm:translatable aspect -->
+               <show id="cm:translations" />
+               
+               <!-- cm:localizable aspect -->
+               <show id="cm:locale" />
+               
+               <!-- cm:ownable aspect -->
+               <show id="cm:owner" />
+               
+               <!-- cm:attachable aspect -->
+               <show id="cm:attachments" />
+               
+               <!-- cm:emailed aspect -->
+               <show id="cm:originator" />
+               <show id="cm:addressee" />
+               <show id="cm:addressees" />
+               <show id="cm:sentdate" />
+               <show id="cm:subjectline" />
+               
+               <!-- exif:exif aspect -->
+               <show id="exif:dateTimeOriginal" />
+               <show id="exif:pixelXDimension" />
+               <show id="exif:pixelYDimension" />
+               <show id="exif:exposureTime" />
+               <show id="exif:fNumber" />
+               <show id="exif:flash" />
+               <show id="exif:focalLength" />
+               <show id="exif:isoSpeedRatings" />
+               <show id="exif:manufacturer" />
+               <show id="exif:model" />
+               <show id="exif:software" />
+               <show id="exif:orientation" />
+               <show id="exif:xResolution" />
+               <show id="exif:yResolution" />
+               <show id="exif:resolutionUnit" />
+
+               <!-- audio:audio aspect -->
+               <show id="audio:album" />
+               <show id="audio:artist" />
+               <show id="audio:composer" />
+               <show id="audio:engineer" />
+               <show id="audio:genre" />
+               <show id="audio:trackNumber" />
+               <show id="audio:releaseDate" />
+               <show id="audio:sampleRate" />
+               <show id="audio:sampleType" />
+               <show id="audio:channelType" />
+               <show id="audio:compressor" />
+               
+               <!-- cm:indexControl aspect -->
+               <show id="cm:isIndexed" />
+               <show id="cm:isContentIndexed" />
+               
+               <!-- cm:geographic aspect -->
+               <show id="cm:latitude" />
+               <show id="cm:longitude" />
+               
+               <!-- sij:conteudo -->
+               <show id="sij:conteudosRelacionados" />
+               
+            </field-visibility>
+            <appearance>
+               <field id="cm:name">
+                 <control>
+                    <control-param name="maxLength">255</control-param>
+                 </control>
+               </field>
+               <field id="cm:title">
+                  <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="cm:description">
+                  <control>
+                     <control-param name="activateLinks">true</control-param>
+                  </control>
+               </field>
+               <field id="mimetype">
+                  <control template="/org/alfresco/components/form/controls/mimetype.ftl" />
+               </field>
+               <field id="size">
+                  <control template="/org/alfresco/components/form/controls/size.ftl" />
+               </field>
+               <field id="cm:taggable">
+                  <control>
+                     <control-param name="compactMode">true</control-param>
+                     <control-param name="params">aspect=cm:taggable</control-param>
+                     <control-param name="createNewItemUri">/api/tag/workspace/SpacesStore</control-param>
+                     <control-param name="createNewItemIcon">tag</control-param>
+                  </control>
+               </field>
+               <field id="cm:categories">
+                  <control>
+                     <control-param name="compactMode">true</control-param>
+                  </control>
+               </field>
+               <field id="cm:originator" read-only="true" />
+               <field id="cm:addressee" read-only="true" />
+               <field id="cm:addressees" read-only="true" />
+               <field id="cm:sentdate" read-only="true" />
+               <field id="cm:subjectline" read-only="true" />
+               <field id="sij:conteudosRelacionados" label-id="assoc.sij_conteudosRelacionados"/>
+            </appearance>
+         </form>
+
+         <!-- Document Library pop-up Edit Metadata form -->
+         <form id="doclib-simple-metadata">
+            <field-visibility>
+               <show id="cm:name" />
+               <show id="cm:title" force="true" />
+               <show id="cm:description" force="true" />
+               <!-- tags and categories -->
+               <show id="cm:taggable" for-mode="edit" force="true" />
+               <show id="cm:categories" />
+               <!-- sij:conteudo -->
+               <show id="sij:conteudosRelacionados" />               
+            </field-visibility>
+            <edit-form template="../documentlibrary/forms/doclib-simple-metadata.ftl" />
+            <appearance>
+               <field id="cm:name">
+                 <control>
+                    <control-param name="maxLength">255</control-param>
+                 </control>
+               </field>
+               <field id="cm:title">
+                  <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="cm:description">
+                  <control>
+                     <control-param name="activateLinks">true</control-param>
+                  </control>
+               </field>
+               <field id="cm:taggable">
+                  <control>
+                     <control-param name="compactMode">true</control-param>
+                     <control-param name="params">aspect=cm:taggable</control-param>
+                     <control-param name="createNewItemUri">/api/tag/workspace/SpacesStore</control-param>
+                     <control-param name="createNewItemIcon">tag</control-param>
+                  </control>
+               </field>
+               <field id="cm:categories">
+                  <control>
+                     <control-param name="compactMode">true</control-param>
+                  </control>
+               </field>
+               <field id="sij:conteudosRelacionados" label-id="assoc.sij_conteudosRelacionados" />
+            </appearance>
+         </form>
+         
+         <!-- Document Library Inline Edit form -->
+         <form id="doclib-inline-edit">
+            <field-visibility>
+               <show id="cm:name" />
+               <show id="cm:title" force="true" />
+               <show id="cm:description" force="true" />
+               <show id="cm:content" force="true" />
+            </field-visibility>
+            <appearance>
+               <field id="cm:name">
+                 <control>
+                    <control-param name="maxLength">255</control-param>
+                 </control>
+               </field>
+               <field id="cm:title">
+                  <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="cm:content">
+                  <control>
+                     <control-param name="editorAppearance">explorer</control-param>
+                     <control-param name="forceEditor">true</control-param>
+                  </control>
+               </field>
+            </appearance>
+         </form>
+      </forms>
+   </config>
+   
+   <!-- sij:publicacao type (existing nodes) -->
+   <config evaluator="node-type" condition="sij:publicacao">
+      <forms>
+         <!-- Default form configuration for the sc:whitepaper type -->
+         <form>
+            <field-visibility>
+               <show id="cm:name" />
+               <show id="cm:title" force="true" />
+               <show id="cm:description" force="true" />
+               <show id="mimetype" />
+               <show id="cm:author" force="true" />
+               <show id="size" for-mode="view" />
+               <show id="cm:creator" for-mode="view" />
+               <show id="cm:created" for-mode="view" />
+               <show id="cm:modifier" for-mode="view" />
+               <show id="cm:modified" for-mode="view" />
+               
+               <!-- tags and categories -->
+               <show id="cm:taggable" for-mode="edit" force="true" />
+               <show id="cm:categories" />
+               
+               <!-- cm:dublincore aspect -->
+               <show id="cm:publisher"/>
+               <show id="cm:contributor"/>
+               <show id="cm:type"/>
+               <show id="cm:identifier"/>
+               <show id="cm:dcsource"/>
+               <show id="cm:coverage"/>
+               <show id="cm:rights"/>
+               <show id="cm:subject"/>
+               
+               <!-- cm:complianceable aspect -->
+               <show id="cm:removeAfter" />
+               
+               <!-- cm:effectivity aspect -->
+               <show id="cm:from"/>
+               <show id="cm:to"/>
+               
+               <!--  cm:summarizable aspect -->
+               <show id="cm:summary" />
+               
+               <!-- cm:translatable aspect -->
+               <show id="cm:translations" />
+               
+               <!-- cm:localizable aspect -->
+               <show id="cm:locale" />
+               
+               <!-- cm:ownable aspect -->
+               <show id="cm:owner" />
+               
+               <!-- cm:attachable aspect -->
+               <show id="cm:attachments" />
+               
+               <!-- cm:emailed aspect -->
+               <show id="cm:originator" />
+               <show id="cm:addressee" />
+               <show id="cm:addressees" />
+               <show id="cm:sentdate" />
+               <show id="cm:subjectline" />
+               
+               <!-- exif:exif aspect -->
+               <show id="exif:dateTimeOriginal" />
+               <show id="exif:pixelXDimension" />
+               <show id="exif:pixelYDimension" />
+               <show id="exif:exposureTime" />
+               <show id="exif:fNumber" />
+               <show id="exif:flash" />
+               <show id="exif:focalLength" />
+               <show id="exif:isoSpeedRatings" />
+               <show id="exif:manufacturer" />
+               <show id="exif:model" />
+               <show id="exif:software" />
+               <show id="exif:orientation" />
+               <show id="exif:xResolution" />
+               <show id="exif:yResolution" />
+               <show id="exif:resolutionUnit" />
+
+               <!-- audio:audio aspect -->
+               <show id="audio:album" />
+               <show id="audio:artist" />
+               <show id="audio:composer" />
+               <show id="audio:engineer" />
+               <show id="audio:genre" />
+               <show id="audio:trackNumber" />
+               <show id="audio:releaseDate" />
+               <show id="audio:sampleRate" />
+               <show id="audio:sampleType" />
+               <show id="audio:channelType" />
+               <show id="audio:compressor" />
+               
+               <!-- cm:indexControl aspect -->
+               <show id="cm:isIndexed" />
+               <show id="cm:isContentIndexed" />
+               
+               <!-- cm:geographic aspect -->
+               <show id="cm:latitude" />
+               <show id="cm:longitude" />
+               
+               <!-- sij:conteudo -->
+               <show id="sij:conteudosRelacionados" />
+               
+               <!-- sij:publicacao -->
+               <show id="sij:pubEdicao" />
+        <!--  
+               <show id="sij:pubStrEdicao" />
+         -->      
+               <show id="sij:pubTribunal" />
+               <show id="sij:pubVara" />
+               <show id="sij:pubProcesso" />
+               <show id="sij:pubGrupo" />
+               <show id="sij:pubAssunto" />
+               <show id="sij:pubAdvogados" />
+               <show id="sij:pubIntimados" />
+        <!--
+               <show id="sij:pubFolder" />
+			   <show id="sij:pubCliente" />
+		-->
+            </field-visibility>
+            <appearance>
+               <field id="cm:name">
+                 <control>
+                    <control-param name="maxLength">255</control-param>
+                 </control>
+               </field>
+               <field id="cm:title">
+                  <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="cm:description">
+                  <control>
+                     <control-param name="activateLinks">true</control-param>
+                  </control>
+               </field>
+               <field id="mimetype">
+                  <control template="/org/alfresco/components/form/controls/mimetype.ftl" />
+               </field>
+               <field id="size">
+                  <control template="/org/alfresco/components/form/controls/size.ftl" />
+               </field>
+               <field id="cm:taggable">
+                  <control>
+                     <control-param name="compactMode">true</control-param>
+                     <control-param name="params">aspect=cm:taggable</control-param>
+                     <control-param name="createNewItemUri">/api/tag/workspace/SpacesStore</control-param>
+                     <control-param name="createNewItemIcon">tag</control-param>
+                  </control>
+               </field>
+               <field id="cm:categories">
+                  <control>
+                     <control-param name="compactMode">true</control-param>
+                  </control>
+               </field>
+               <field id="cm:originator" read-only="true" />
+               <field id="cm:addressee" read-only="true" />
+               <field id="cm:addressees" read-only="true" />
+               <field id="cm:sentdate" read-only="true" />
+               <field id="cm:subjectline" read-only="true" />
+               <field id="sij:pubEdicao" label-id="prop.sij_pubEdicao"/>
+		<!-- 
+               <field id="sij:pubStrEdicao" label-id="prop.sij_pubStrEdicao"/>
+		-->
+               <field id="sij:pubTribunal" label-id="prop.sij_pubTribunal"/>
+               <field id="sij:pubVara" label-id="prop.sij_pubVara"/>
+               <field id="sij:pubProcesso" label-id="prop.sij_pubProcesso"/>
+               <field id="sij:pubGrupo" label-id="prop.sij_pubGrupo"/>
+               <field id="sij:pubAssunto" label-id="prop.sij_pubAssunto"/>
+               <field id="sij:pubAdvogados" label-id="prop.sij_pubAdvogados"/>
+               <field id="sij:pubIntimados" label-id="prop.sij_pubIntimados"/>
+        <!--       
+               <field id="sij:pubFolder" label-id="prop.sij_pubFolder"/>
+               <field id="sij:pubCliente" label-id="prop.sij_pubCliente"/>
+        -->       
+               <field id="sij:conteudosRelacionados" label-id="assoc.sij_conteudosRelacionados"/>
+           		 
+            </appearance>
+         </form>
+
+         <!-- Document Library pop-up Edit Metadata form -->
+         <form id="doclib-simple-metadata">
+            <field-visibility>
+               <show id="cm:name" />
+               <show id="cm:title" force="true" />
+               <show id="cm:description" force="true" />
+               <!-- tags and categories -->
+               <show id="cm:taggable" for-mode="edit" force="true" />
+               <show id="cm:categories" />
+               <!-- sij:publicacao -->
+               <show id="sij:pubEdicao" />
+         <!--  
+               <show id="sij:pubStrEdicao" />
+         -->
+               <show id="sij:pubTribunal" />
+               <show id="sij:pubVara" />
+               <show id="sij:pubProcesso" />
+               <show id="sij:pubGrupo" />
+               <show id="sij:pubAssunto" />
+               <show id="sij:pubAdvogados" />
+               <show id="sij:pubIntimados" />
+         <!-- 
+               <show id="sij:pubFolder" />  
+               <show id="sij:pubCliente" />  
+         -->                 
+               <show id="sij:conteudosRelacionados" /> 
+                          
+            </field-visibility>
+            <edit-form template="../documentlibrary/forms/doclib-simple-metadata.ftl" />
+            <appearance>
+               <field id="cm:name">
+                 <control>
+                    <control-param name="maxLength">255</control-param>
+                 </control>
+               </field>
+               <field id="cm:title">
+                  <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="cm:description">
+                  <control>
+                     <control-param name="activateLinks">true</control-param>
+                  </control>
+               </field>
+               <field id="cm:taggable">
+                  <control>
+                     <control-param name="compactMode">true</control-param>
+                     <control-param name="params">aspect=cm:taggable</control-param>
+                     <control-param name="createNewItemUri">/api/tag/workspace/SpacesStore</control-param>
+                     <control-param name="createNewItemIcon">tag</control-param>
+                  </control>
+               </field>
+               <field id="cm:categories">
+                  <control>
+                     <control-param name="compactMode">true</control-param>
+                  </control>
+               </field>
+               <field id="cm:originator" read-only="true" />
+               <field id="cm:addressee" read-only="true" />
+               <field id="cm:addressees" read-only="true" />
+               <field id="cm:sentdate" read-only="true" />
+               <field id="cm:subjectline" read-only="true" />
+               <field id="sij:pubEdicao" label-id="prop.sij_pubEdicao"/>
+           <!-- 
+               <field id="sij:pubStrEdicao" label-id="prop.sij_pubStrEdicao"/>
+           -->
+               <field id="sij:pubTribunal" label-id="prop.sij_pubTribunal"/>
+               <field id="sij:pubVara" label-id="prop.sij_pubVara"/>
+               <field id="sij:pubProcesso" label-id="prop.sij_pubProcesso"/>
+               <field id="sij:pubGrupo" label-id="prop.sij_pubGrupo"/>
+               <field id="sij:pubAssunto" label-id="prop.sij_pubAssunto"/>
+               <field id="sij:pubAdvogados" label-id="prop.sij_pubAdvogados"/>
+               <field id="sij:pubIntimados" label-id="prop.sij_pubIntimados"/>
+           <!--
+               <field id="sij:pubFolder" label-id="prop.sij_pubFolder"/>
+               <field id="sij:pubCliente" label-id="prop.sij_pubCliente"/>
+            -->
+               <field id="sij:conteudosRelacionados" label-id="assoc.sij_conteudosRelacionados" />
+               
+            </appearance>
+         </form>
+         
+         <!-- Document Library Inline Edit form -->
+         <form id="doclib-inline-edit">
+            <field-visibility>
+               <show id="cm:name" />
+               <show id="cm:title" force="true" />
+               <show id="cm:description" force="true" />
+               <show id="cm:content" force="true" />
+            </field-visibility>
+            <appearance>
+               <field id="cm:name">
+                 <control>
+                    <control-param name="maxLength">255</control-param>
+                 </control>
+               </field>
+               <field id="cm:title">
+                  <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="cm:content">
+                  <control>
+                     <control-param name="editorAppearance">explorer</control-param>
+                     <control-param name="forceEditor">true</control-param>
+                  </control>
+               </field>
+            </appearance>
+         </form>
+      </forms>
+   </config>
+
+   <!-- sij:documento type (existing nodes) -->
+   <config evaluator="node-type" condition="sij:documento">
+      <forms>
+         <!-- Default form configuration for the sc:whitepaper type -->
+         <form>
+            <field-visibility>
+               <show id="cm:name" />
+               <show id="cm:title" force="true" />
+               <show id="cm:description" force="true" />
+               <show id="mimetype" />
+               <show id="cm:author" force="true" />
+               <show id="size" for-mode="view" />
+               <show id="cm:creator" for-mode="view" />
+               <show id="cm:created" for-mode="view" />
+               <show id="cm:modifier" for-mode="view" />
+               <show id="cm:modified" for-mode="view" />
+               
+               <!-- tags and categories -->
+               <show id="cm:taggable" for-mode="edit" force="true" />
+               <show id="cm:categories" />
+               
+               <!-- cm:dublincore aspect -->
+               <show id="cm:publisher"/>
+               <show id="cm:contributor"/>
+               <show id="cm:type"/>
+               <show id="cm:identifier"/>
+               <show id="cm:dcsource"/>
+               <show id="cm:coverage"/>
+               <show id="cm:rights"/>
+               <show id="cm:subject"/>
+               
+               <!-- cm:complianceable aspect -->
+               <show id="cm:removeAfter" />
+               
+               <!-- cm:effectivity aspect -->
+               <show id="cm:from"/>
+               <show id="cm:to"/>
+               
+               <!--  cm:summarizable aspect -->
+               <show id="cm:summary" />
+               
+               <!-- cm:translatable aspect -->
+               <show id="cm:translations" />
+               
+               <!-- cm:localizable aspect -->
+               <show id="cm:locale" />
+               
+               <!-- cm:ownable aspect -->
+               <show id="cm:owner" />
+               
+               <!-- cm:attachable aspect -->
+               <show id="cm:attachments" />
+               
+               <!-- cm:emailed aspect -->
+               <show id="cm:originator" />
+               <show id="cm:addressee" />
+               <show id="cm:addressees" />
+               <show id="cm:sentdate" />
+               <show id="cm:subjectline" />
+               
+               <!-- exif:exif aspect -->
+               <show id="exif:dateTimeOriginal" />
+               <show id="exif:pixelXDimension" />
+               <show id="exif:pixelYDimension" />
+               <show id="exif:exposureTime" />
+               <show id="exif:fNumber" />
+               <show id="exif:flash" />
+               <show id="exif:focalLength" />
+               <show id="exif:isoSpeedRatings" />
+               <show id="exif:manufacturer" />
+               <show id="exif:model" />
+               <show id="exif:software" />
+               <show id="exif:orientation" />
+               <show id="exif:xResolution" />
+               <show id="exif:yResolution" />
+               <show id="exif:resolutionUnit" />
+
+               <!-- audio:audio aspect -->
+               <show id="audio:album" />
+               <show id="audio:artist" />
+               <show id="audio:composer" />
+               <show id="audio:engineer" />
+               <show id="audio:genre" />
+               <show id="audio:trackNumber" />
+               <show id="audio:releaseDate" />
+               <show id="audio:sampleRate" />
+               <show id="audio:sampleType" />
+               <show id="audio:channelType" />
+               <show id="audio:compressor" />
+               
+               <!-- cm:indexControl aspect -->
+               <show id="cm:isIndexed" />
+               <show id="cm:isContentIndexed" />
+               
+               <!-- cm:geographic aspect -->
+               <show id="cm:latitude" />
+               <show id="cm:longitude" />
+               
+               <!-- sij:conteudo -->
+  				<show id="sij:conteudosRelacionados" />
+  				
+               <!-- sij:documento -->
+               <show id="sij:docTipo" />
+               <show id="sij:docSituacao" />
+               <show id="sij:docCliente" />
+               
+            </field-visibility>
+            <appearance>
+               <field id="cm:name">
+                 <control>
+                    <control-param name="maxLength">255</control-param>
+                 </control>
+               </field>
+               <field id="cm:title">
+                  <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="cm:description">
+                  <control>
+                     <control-param name="activateLinks">true</control-param>
+                  </control>
+               </field>
+               <field id="mimetype">
+                  <control template="/org/alfresco/components/form/controls/mimetype.ftl" />
+               </field>
+               <field id="size">
+                  <control template="/org/alfresco/components/form/controls/size.ftl" />
+               </field>
+               <field id="cm:taggable">
+                  <control>
+                     <control-param name="compactMode">true</control-param>
+                     <control-param name="params">aspect=cm:taggable</control-param>
+                     <control-param name="createNewItemUri">/api/tag/workspace/SpacesStore</control-param>
+                     <control-param name="createNewItemIcon">tag</control-param>
+                  </control>
+               </field>
+               <field id="cm:categories">
+                  <control>
+                     <control-param name="compactMode">true</control-param>
+                  </control>
+               </field>
+               <field id="cm:originator" read-only="true" />
+               <field id="cm:addressee" read-only="true" />
+               <field id="cm:addressees" read-only="true" />
+               <field id="cm:sentdate" read-only="true" />
+               <field id="cm:subjectline" read-only="true" />
+               <field id="sij:conteudosRelacionados" label-id="assoc.sij_conteudosRelacionados" />
+               <field id="sij:docTipo" label-id="prop.sij_docTipo"/>
+               <field id="sij:docSituacao" label-id="prop.sij_docSituacao"/>
+               <field id="sij:docCliente" label-id="prop.sij_docCliente"/>
+            </appearance>
+         </form>
+
+         <!-- Document Library pop-up Edit Metadata form -->
+         <form id="doclib-simple-metadata">
+            <field-visibility>
+               <show id="cm:name" />
+               <show id="cm:title" force="true" />
+               <show id="cm:description" force="true" />
+               <!-- tags and categories -->
+               <show id="cm:taggable" for-mode="edit" force="true" />
+               <show id="cm:categories" />  
+               <!-- sij:conteudo -->
+               <show id="sij:conteudosRelacionados"  />
+               <!-- sij:documento --> 
+               <show id="sij:docTipo" />   
+               <show id="sij:docSituacao" /> 
+               <show id="sij:docCliente" />   
+            </field-visibility>
+            <edit-form template="../documentlibrary/forms/doclib-simple-metadata.ftl" />
+            <appearance>
+               <field id="cm:name">
+                 <control>
+                    <control-param name="maxLength">255</control-param>
+                 </control>
+               </field>
+               <field id="cm:title">
+                  <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="cm:description">
+                  <control>
+                     <control-param name="activateLinks">true</control-param>
+                  </control>
+               </field>
+               <field id="cm:taggable">
+                  <control>
+                     <control-param name="compactMode">true</control-param>
+                     <control-param name="params">aspect=cm:taggable</control-param>
+                     <control-param name="createNewItemUri">/api/tag/workspace/SpacesStore</control-param>
+                     <control-param name="createNewItemIcon">tag</control-param>
+                  </control>
+               </field>
+               <field id="cm:categories">
+				<control>
+                   <control-param name="compactMode">true</control-param>
+                </control>  
+                <field id="sij:conteudosRelacionados" label-id="assoc.sij_conteudosRelacionados" />
+               	<field id="sij:docTipo" label-id="prop.sij_docTipo" />
+               	<field id="sij:docSituacao" label-id="prop.sij_docSituacao" />
+               	<field id="sij:docCliente" label-id="prop.sij_docCliente" />
+               	</field>
+            </appearance>
+         </form>
+         
+         <!-- Document Library Inline Edit form -->
+         <form id="doclib-inline-edit">
+            <field-visibility>
+               <show id="cm:name" />
+               <show id="cm:title" force="true" />
+               <show id="cm:description" force="true" />
+               <show id="cm:content" force="true" />
+            </field-visibility>
+            <appearance>
+               <field id="cm:name">
+                 <control>
+                    <control-param name="maxLength">255</control-param>
+                 </control>
+               </field>
+               <field id="cm:title">
+                  <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="cm:content">
+                  <control>
+                     <control-param name="editorAppearance">explorer</control-param>
+                     <control-param name="forceEditor">true</control-param>
+                  </control>
+               </field>
+            </appearance>
+         </form>
+      </forms>
+   </config>
+   
+   <config evaluator="aspect" condition="sij:clienteSIJ">
+       <forms>
+	       <form>
+	       		<field-visibility>
+                   <show id="sij:cliCodigo" />
+                   <show id="sij:cliNome" />
+                   <show id="sij:cliPastaPublicacoes" />
+                   <show id="sij:cliSite" />
+	           </field-visibility>
+	           <appearance> 				    
+		           	<field id="sij:cliCodigo" label-id="prop.sij_cliCodigo" />
+		           	<field id="sij:cliNome" label-id="prop.sij_cliNome" />
+		           	<field id="sij:cliPastaPublicacoes" label-id="prop.sij_cliPastaPublicacoes" />
+		           	<field id="sij:cliSite" label-id="prop.sij_cliSite" />
+               </appearance>
+          </form>
+	   </forms>
+   </config>
+   
+   <config evaluator="aspect" condition="sij:docJuridico">
+       <forms>
+	       <form>
+	       		<field-visibility>
+                   <show id="sij:jurCliente" />
+                   <show id="sij:jurTipo" />
+                   <show id="sij:jurProcesso" />
+                   <show id="sij:jurTribunal" />
+                   <show id="sij:jurVara" />
+	           </field-visibility>
+	           <appearance> 				    
+		           	<field id="sij:jurCliente" label-id="prop.sij_jurCliente" />
+		           	<field id="sij:jurTipo" label-id="prop.sij_jurTipo" />
+		           	<field id="sij:jurProcesso" label-id="prop.sij_jurProcesso" />
+		           	<field id="sij:jurTribunal" label-id="prop.sij_jurTribunal" />
+		           	<field id="sij:jurVara" label-id="prop.sij_jurVara" />
+               </appearance>
+          </form>
+	   </forms>
+   </config>
+   
+   <config evaluator="aspect" condition="sij:tabTokens">
+       <forms>
+	       <form>
+	       		<field-visibility>
+                   <show id="sij:tknCliente" />
+                   <show id="sij:tknTribunal" />
+	           	</field-visibility>
+	           <appearance> 				    
+		           	<field id="sij:tknCliente" label-id="prop.sij_tknCliente" />
+		           	<field id="sij:tknTribunal" label-id="prop.sij_tknTribunal" />
+               </appearance>
+          </form>
+	   </forms>
+   </config>
+   
+   <config evaluator="aspect" condition="sij:recorte">
+       <forms>
+	       <form>
+	       		<field-visibility>
+                   <show id="sij:recCliente" />
+                   <show id="sij:recTokens" />
+	           	</field-visibility>
+	           <appearance> 				    
+		           	<field id="sij:recCliente" label-id="prop.sij_recCliente" />
+		           	<field id="sij:recTokens" label-id="prop.sij_recTokens" />
+               </appearance>
+          </form>
+	   </forms>
+   </config>
+ 
+   <config evaluator="aspect" condition="sij:empresa">
+       <forms>
+	       <form>
+	           <field-visibility>
+	           		<show id="sij:empCodigo" />
+                   	<show id="sij:empNome" />
+                   	<show id="sij:empCNPJ" />
+                   	<show id="sij:empEndereco" />
+                   	<show id="sij:empContato" />
+                   	<show id="sij:empFones" />
+                   	<show id="sij:empEmails" />
+                   	<show id="sij:empCapitao" />
+                   	<show id="sij:empTokens" />
+	           </field-visibility>
+	           <appearance>
+	           		<field id="sij:empCodigo" label-id="prop.sij_empCodigo" />	    
+		           	<field id="sij:empNome" label-id="prop.sij_empNome" />
+		           	<field id="sij:empCNPJ" label-id="prop.sij_empCNPJ" />
+		           	<field id="sij:empEndereco" label-id="prop.sij_empEndereco" />
+		           	<field id="sij:empContato" label-id="prop.sij_empResponsavel" />
+		           	<field id="sij:empFones" label-id="prop.sij_empFones" />
+		           	<field id="sij:empEmails" label-id="prop.sij_empEmails" />
+		           	<field id="sij:empCapitao" label-id="prop.sij_empCapitao" />
+		           	<field id="sij:empTokens" label-id="prop.sij_empTokens" />
+               </appearance>
+          </form>
+	   </forms>
+   </config>		
+   
+   <config evaluator="aspect" condition="sij:publicacoes">
+       <forms>
+	       <form>
+	           <field-visibility>
+                   	<show id="sij:pstEdicao" />
+                   	<show id="sij:pstTribunal" />
+                   	<show id="sij:pstCliente" />
+	           </field-visibility>
+	           <appearance> 				    
+		           	<field id="sij:pstEdicao" label-id="prop.sij_pstEdicao" />
+		           	<field id="sij:pstTribunal" label-id="prop.sij_pstTribunal" />
+		           	<field id="sij:pstCliente" label-id="prop.sij_pstCliente" />
+               </appearance>
+          </form>
+	   </forms>
+   </config>
+   
+   <config evaluator="aspect" condition="sij:edicoes">
+       <forms>
+	       <form>
+	           <field-visibility>
+                   	<show id="sij:edcEdicao" />
+                   	<show id="sij:edcStrEdicao" />
+                   	<show id="sij:edcTribunal" />
+					<show id="sij:edcIndexados" />
+					<show id="sij:edcObservacao" />
+					<show id="sij:edcIndex" />
+	           </field-visibility>
+	           <appearance> 				    
+		           	<field id="sij:edcEdicao" label-id="prop.sij_edcEdicao" />
+		           	<field id="sij:edcStrEdicao" label-id="prop.sij_edcStrEdicao" />
+		           	<field id="sij:edcTribunal" label-id="prop.sij_edcTribunal" />
+		           	<field id="sij:edcIndexados" label-id="prop.sij_edcIndexados" />
+		           	<field id="sij:edcObservacao" label-id="prop.sij_edcObservacao" />
+		           	<field id="sij:edcIndex" label-id="prop.sij_edcIndex" />
+               </appearance>
+          </form>
+	   </forms>
+   </config>
+   
+   <config evaluator="aspect" condition="sij:diarioOficial">
+       <forms>
+	       <form>
+	           <field-visibility>
+	           		<show id="sij:dofTribunal" />
+                   	<show id="sij:dofEdicao" />                  	
+					<show id="sij:dofObservacao" />
+					<show id="sij:dofProcessado" />
+	           </field-visibility>
+	           <appearance>
+	           		<field id="sij:dofTribunal" label-id="prop.sij_dofTribunal" />	    
+		           	<field id="sij:dofEdicao" label-id="prop.sij_dofEdicao" />		           	
+		           	<field id="sij:dofProcessado" label-id="prop.sij_dofProcessado" />
+               </appearance>
+          </form>
+	   </forms>
+   </config>
+   
+   <config evaluator="aspect" condition="sij:processo">
+       <forms>
+	       <form>
+	           <field-visibility>
+	           		<show id="sij:prcNumProcesso" />
+                   	<show id="sij:prcEmpresa" />
+                   	<show id="sij:prcTribunal" />
+                   	<show id="sij:prcVara" />
+					<show id="sij:prcStatus" />
+					<show id="sij:prcObservacao" />
+	           </field-visibility>
+	           <appearance> 				
+	           		<field id="sij:prcNumProcesso" label-id="prop.sij_prcNumProcesso" />    
+		           	<field id="sij:prcEmpresa" label-id="prop.sij_prcEmpresa" />
+		           	<field id="sij:prcTribunal" label-id="prop.sij_prcTribunal" />
+		           	<field id="sij:prcVara" label-id="prop.sij_prcVara" />
+		           	<field id="sij:prcStatus" label-id="prop.sij_prcStatus" />
+		           	<field id="sij:prcObservacao" label-id="prop.sij_prcObservacao" />
+               </appearance>
+          </form>
+	   </forms>
+   </config>
+
+   <!-- sij:documento type (new nodes) -->
+   <config evaluator="model-type" condition="sij:documento">
+      <forms>
+         <!-- Search form -->
+         <form id="search">
+            <field-visibility>
+               <show id="cm:name" />
+               <show id="cm:title" force="true" />
+               <show id="cm:description" force="true" />
+               <show id="mimetype" />
+               <show id="cm:modified" />
+               <show id="cm:modifier" />
+               
+               <!-- sij:pstPublicacoes 
+               <show id="sij:pstEdicao" />
+               <show id="sij:pstTribunal" />
+               <show id="sij:pstCliente" />
+               sij:edicao 
+               <show id="sij:edcEdicao" />
+               <show id="sij:edcStrEdicao" />
+               <show id="sij:edcTribunal" />
+               <show id="sij:edcIndexados" />
+               <show id="sij:edcObservacao" />
+               sij:processo 
+               <show id="sij:prcNumProcesso" />
+               <show id="sij:prcEmpresao" />
+               <show id="sij:prcTribunal" />
+               <show id="sij:prcVara" />
+               <show id="sij:prcStatus" />
+               <show id="sij:prcObservacao" />
+                sij:tabTokens 
+               <show id="sij:tknCliente" />
+               <show id="sij:tknTribunal" />
+               sij:recorte
+               <show id="sij:recCliente" />
+               <show id="sij:recTokens" />
+               sij:ClienteSIJ 
+               <show id="sij:cliCodigo" />
+               <show id="sij:cliNome" />
+               <show id="sij:cliPastaPublicacoes" />
+               <show id="sij:cliSite" />
+               sij:empresa 
+               <show id="sij:empNome" />
+               <show id="sij:empCNPJ" />
+               <show id="sij:empEndereco" />
+               <show id="sij:empContato" />
+               <show id="sij:empFones" />
+               <show id="sij:empEmails" />
+               <show id="sij:empTokens" />
+               <show id="sij:empCapitao" />
+			-->
+            </field-visibility>
+            <appearance>
+               <field id="mimetype">
+                  <control template="/org/alfresco/components/form/controls/mimetype.ftl" />
+               </field>
+               <field id="cm:modifier">
+                  <control>
+                     <control-param name="forceEditable">true</control-param>
+                  </control>
+               </field>
+               <field id="cm:modified">
+                  <control template="/org/alfresco/components/form/controls/daterange.ftl" />
+               </field>
+
+               <!-- sij:Publicacoes 
+               <field id="sij:pstEdicao" label-id="prop.sij_pstEdicao">
+                   <control template="/org/alfresco/components/form/controls/daterange.ftl" />
+               </field>
+               <field id="sij:pstTribunal" label-id="prop.sij_pstTribunal">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sij:pstCliente" label-id="prop.sij_pstCliente">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               
+                sij:edicoes
+               <field id="sij:edcEdicao" label-id="prop.sij_edcEdicao">
+                   <control template="/org/alfresco/components/form/controls/daterange.ftl" />
+               </field>
+               <field id="sij:edcStrEdicao" label-id="prop.sij_edcStrEdicao">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sij:edcTribunal" label-id="prop.sij_edcTribunal">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sij:edcIndexados" label-id="prop.sij_edcIndexados">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sij:edcObservacao" label-id="prop.sij_edcObservacao">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>  
+               
+               sij:Recorte 
+               <field id="sij:recCliente" label-id="prop.sij_recCliente">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sij:recTokens" label-id="prop.sij_recTokens">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               
+                sij:empresa 
+               <field id="sij:empNome" label-id="prop.sij_empNome">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sij:empCNPJ" label-id="prop.sij_edcTribunal">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sij:empEndereco" label-id="prop.sij_empEndereco">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sij:empResponsavel" label-id="prop.sij_empResponsavel">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sij:empFones" label-id="prop.sij_empFones">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sij:empEmails" label-id="prop.sij_empEmails">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sij:empTokens" label-id="prop.sij_empTokens">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sij:empCapitao" label-id="prop.sij_empCapitao">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               
+                sij:processo 
+               <field id="sij:prcNumProcesso" label-id="prop.sij_prcNumProcesso">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sij:prcEmpresa" label-id="prop.sij_prcEmpresa">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sij:prcTribunal" label-id="prop.sij_prcTribunal">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sij:prcVara" label-id="prop.sij_prcVara">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sij:prcStatus" label-id="prop.sij_prcStatus">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sij:prcObservacao" label-id="prop.sij_prcObservacao">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               
+                sij:tabTokens 
+               <field id="sij:tknCliente" label-id="prop.sij_tknCliente">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sij:tknTribunal" label-id="prop.sij_tknTribunal">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               
+                sij:clienteSIJ 
+               <field id="sij:cliCodigo" label-id="prop.sij_cliCodigo">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sij:cliNome" label-id="prop.sij_cliNome">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sij:cliPastaPublicacoes" label-id="prop.sij_cliPastaPublicacoes">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sij:cliSite" label-id="prop.sij_cliSite">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+ 		-->
+            </appearance>
+         </form>
+      </forms>
+   </config>
+
+   <!-- sij:documento type (new nodes) -->
+   <config evaluator="model-type" condition="sij:publicacao">
+      <forms>
+         <!-- Search form -->
+         <form id="search">
+            <field-visibility>
+               <show id="cm:name" />
+               <show id="cm:title" force="true" />
+               <show id="cm:description" force="true" />
+               
+           <!-- 
+           		<show id="cm:created" />
+               	<show id="mimetype" force="sij:publicacao" />               
+               	<show id="cm:modifier" />
+           -->
+            
+               <!-- sij:publicacao -->
+               <show id="sij:pubEdicao" />
+               <show id="sij:pubTribunal" />
+               <show id="sij:pubProcesso" />
+               <show id="sij:pubVara" />
+               <show id="sij:pubAdvogados" />
+               <show id="sij:pubGrupo" />
+               <show id="sij:pubAssunto" />
+               <show id="sij:pubIntimados" />
+            </field-visibility>
+            <appearance>
+            <!-- 
+               <field id="mimetype">
+                  <control template="/org/alfresco/components/form/controls/mimetype.ftl" />
+               </field>
+               <field id="cm:modifier">
+                  <control>
+                     <control-param name="forceEditable">true</control-param>
+                  </control>
+               </field>
+               <field id="cm:modified">
+                  <control template="/org/alfresco/components/form/controls/daterange.ftl" />
+               </field>
+ 			-->
+               <!-- sij:publicacao  -->
+               <field id="sij:pubEdicao" label-id="prop.sij_pubEdicao">
+                   <control template="/org/alfresco/components/form/controls/date.ftl" />
+               </field>
+               <field id="sij:pubTribunal" label-id="prop.sij_pubTribunal">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sij:pubVara" label-id="prop.sij_pubVara">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sij:pubProcesso" label-id="prop.sij_pubProcesso">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sij:pubGrupo" label-id="prop.sij_pubGrupo">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sij:pubAssunto" label-id="prop.sij_pubAssunto">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sij:pubAdvogados" label-id="prop.sij_pubAdvogados">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sij:pubIntimados" label-id="prop.sij_pubIntimados">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+            </appearance>
+         </form>
+      </forms>
+   </config>
+</alfresco-config>
